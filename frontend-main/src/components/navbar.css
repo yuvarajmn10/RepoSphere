@@ -1,0 +1,33 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+
+nav img {
+  height: 36px;
+  border-radius: 100%;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+}
+
+nav h3 {
+  margin-left: 10px;
+  color: white;
+}
+
+nav p {
+  margin-left: 30px;
+  font-weight: 500;
+  color: #c9d1d9;
+}
+
+nav p:hover {
+  color: #58a6ff;
+}
