@@ -5,31 +5,20 @@ const multer = require("multer");
 
 const userRouter = express.Router();
 
-/* ===============================
-   MULTER CONFIG
-================================ */
+/* MULTER */
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) =>
+    cb(null, Date.now() + "-" + file.originalname),
 });
 
 const upload = multer({ storage });
 
-/* ===============================
-   AUTH ROUTES
-================================ */
+/* ROUTES */
 
 userRouter.post("/signup", userController.signup);
 userRouter.post("/login", userController.login);
-
-/* ===============================
-   PROFILE IMAGE ROUTE
-================================ */
 
 userRouter.post(
   "/upload-profile",

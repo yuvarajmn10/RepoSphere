@@ -6,7 +6,7 @@ import { PageHeader } from "@primer/react/drafts";
 import { Box, Button } from "@primer/react";
 import "./auth.css";
 
-import logo from "../../assets/github-mark-white.svg";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
@@ -46,9 +46,12 @@ const Signup = () => {
 
   return (
     <div className="login-wrapper">
-      <div className="login-logo-container">
+      <div className="logo-header">
         <img className="logo-login" src={logo} alt="Logo" />
+        <div className="logo-name">REPOSPHERE</div>
       </div>
+
+
 
       <div className="login-box-wrapper">
         <div className="login-heading">

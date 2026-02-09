@@ -1,72 +1,112 @@
 .repo-details-container {
-  width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
   color: white;
 }
+
+/* HEADER */
 
 .repo-header {
   margin-bottom: 30px;
 }
 
+.repo-header h1 {
+  margin-bottom: 6px;
+}
+
 .repo-desc {
-  color: #aaa;
+  color: #8b949e;
+  margin-bottom: 6px;
 }
 
 .repo-owner {
-  font-size: 14px;
-  color: #ccc;
+  font-size: 13px;
+  color: #6e7681;
 }
+
+/* COMMIT PANEL */
 
 .commit-panel {
   background: #161b22;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 22px;
+  border-radius: 12px;
   margin-bottom: 30px;
+  border: 1px solid #30363d;
 }
 
 .commit-input {
   width: 100%;
   margin-bottom: 12px;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
   border: 1px solid #30363d;
   background: #0d1117;
   color: white;
+  font-size: 14px;
+}
+
+.commit-input:focus {
+  outline: none;
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 2px rgba(88,166,255,0.15);
 }
 
 .commit-btn {
   background: #238636;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
 }
+
+.commit-btn:hover {
+  background: #2ea043;
+}
+
+/* SECTIONS */
 
 .repo-section {
   margin-bottom: 40px;
 }
 
+/* FILE LIST */
+
 .file-item {
-  padding: 6px 0;
-  border-bottom: 1px solid #222;
+  padding: 8px 0;
+  border-bottom: 1px solid #21262d;
+  font-size: 14px;
 }
+
+/* COMMIT CARDS */
 
 .commit-card {
   background: #161b22;
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #30363d;
+  transition: 0.2s ease;
+}
+
+.commit-card:hover {
+  border-color: #58a6ff;
 }
 
 .commit-meta {
-  font-size: 13px;
-  color: #aaa;
+  font-size: 12px;
+  color: #8b949e;
 }
 
 .commit-files {
   margin-top: 10px;
+  font-size: 13px;
+  color: #c9d1d9;
 }
 
+/* ISSUE */
+
 .issue-item {
-  padding: 8px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #21262d;
 }

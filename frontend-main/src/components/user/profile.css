@@ -1,110 +1,186 @@
+/* PAGE LAYOUT */
+
 .profile-page-wrapper {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 320px 1fr;
   min-height: 100vh;
-  color: whitesmoke;
   width: 100%;
-  padding: 30px;
-  gap: 30px;
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 36px;
+  background: #0d1117;
 }
 
+body {
+  overflow-x: hidden;
+}
+
+/* =========================
+   PROFILE SIDEBAR
+========================= */
 
 .user-profile-section {
-  width: 250px;
-  /* min-height: 100vh; */
+  background: linear-gradient(180deg, #161b22, #0f141a);
+  border: 1px solid #30363d;
+  border-radius: 14px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  padding: 40px 10px;
+  align-items: center;
+  height: fit-content;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-.user-repo-section {
-  margin: 0px auto;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.user-name {
-  /* width: 250px; */
-  margin: 10px 20px 10px 10px;
-  /* margin: 10px auto; */
-}
+/* profile image */
 
 .profile-image {
-  margin: 10px auto;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #30363d;
+  margin-bottom: 18px;
+  transition: 0.25s;
 }
 
-
-.follow-btn {
-  background-color: #20272d;
-  width: 250px;
-  margin: 10px auto;
-  height: 40px;
-  border-radius: 10px;
-  color: whitesmoke;
+.profile-image:hover {
+  transform: scale(1.04);
+  border-color: #58a6ff;
 }
 
-.follower {
-  display: flex;
-  justify-content: center;
-  width: 250px;
-  height: 30px;
-  gap: 10px;
-  margin: 10px auto;
-}
+/* username */
 
-.repo-card-wrapper {
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 40px 20px;
-}
-
-.repo {
-  border: 0.5px solid grey;
-  border-radius: 10px;
-  width: 400px;
-  height: 210px;
-  padding: 20px 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.repo-name {
-  cursor: pointer;
-  color: #408ced;
+.user-profile-section h3 {
+  margin: 10px 0 6px;
   font-size: 20px;
+  font-weight: 600;
 }
 
-.description {
-  color: grey;
-  font-size: 15px;
+/* small text */
+
+.user-profile-section p {
+  font-size: 13px;
+  color: #8b949e;
+  text-align: center;
+  margin-bottom: 18px;
 }
 
-@media screen and (max-width: 750px) {
-  .repo {
-    width: 100%;
-  }
+/* upload button */
+
+.upload-btn {
+  margin-top: 10px;
+  background: #21262d;
+  border: 1px solid #30363d;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s ease;
 }
 
-@media screen and (max-width: 570px) {
-  .user-profile-section {
-    margin: auto;
-  }
+.upload-btn:hover {
+  background: #30363d;
+  border-color: #58a6ff;
+}
 
+/* =========================
+   RIGHT PANEL
+========================= */
+
+.heat-map-section {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* title */
+
+.heat-map-section h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* =========================
+   STARRED REPOS GRID
+========================= */
+
+.starred-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+/* repo card */
+
+.starred-card {
+  background: linear-gradient(180deg, #161b22, #11161c);
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 18px;
+  transition: 0.25s ease;
+  position: relative;
+}
+
+.starred-card:hover {
+  border-color: #58a6ff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+}
+
+/* repo info */
+
+.starred-info h4 {
+  margin: 0;
+  color: #58a6ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.starred-info p {
+  margin: 8px 0;
+  color: #c9d1d9;
+  font-size: 14px;
+}
+
+.starred-info small {
+  color: #8b949e;
+  font-size: 12px;
+}
+
+/* unstar button */
+
+.unstar-btn {
+  margin-top: 14px;
+  width: 100%;
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.unstar-btn:hover {
+  background: #30363d;
+  border-color: #f85149;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
   .profile-page-wrapper {
-    display: block;
+    grid-template-columns: 1fr;
   }
-}
 
-#logout:hover {
-  border: 1px solid white;
+  .user-profile-section {
+    align-items: center;
+  }
 }

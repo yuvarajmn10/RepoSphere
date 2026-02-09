@@ -12,17 +12,20 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
 
-  // FETCH DATA
+  /* ===============================
+     FETCH USER REPOS
+  ============================== */
+
   useEffect(() => {
     const fetchUserRepositories = async () => {
       try {
-        const res = await API.get("/repo/user", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await API.get("/repo/user");
 
-        setRepositories(res.data || []);
+        const sorted = (res.data || []).sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        setRepositories(sorted);
       } catch (err) {
         console.error("Repo fetch error:", err);
         setRepositories([]);
@@ -33,11 +36,11 @@ const Dashboard = () => {
       try {
         const res = await API.get("/repo/all");
 
-        const uniqueRepos = Array.from(
+        const unique = Array.from(
           new Map(res.data.map(repo => [repo._id, repo])).values()
         );
 
-        setSuggestedRepositories(uniqueRepos);
+        setSuggestedRepositories(unique);
       } catch (err) {
         console.error("Suggested repo error:", err);
         setSuggestedRepositories([]);
@@ -48,43 +51,54 @@ const Dashboard = () => {
     fetchSuggestedRepositories();
   }, []);
 
-  // SEARCH FILTER
-  useEffect(() => {
-    if (!Array.isArray(repositories)) return;
+  /* ===============================
+     INSTANT SEARCH FILTER
+  ============================== */
 
-    if (!searchQuery) {
+  useEffect(() => {
+    if (!searchQuery.trim()) {
       setSearchResults(repositories);
-    } else {
-      const filtered = repositories.filter((repo) =>
-        repo.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setSearchResults(filtered);
+      return;
     }
+
+    const filtered = repositories.filter(repo =>
+      repo.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    setSearchResults(filtered);
   }, [searchQuery, repositories]);
 
-  // DELETE REPO
+  /* ===============================
+     DELETE REPO
+  ============================== */
+
   const handleDeleteRepo = async (repoId) => {
     try {
-      await API.delete(`/repo/delete/${repoId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await API.delete(`/repo/delete/${repoId}`);
 
-      setRepositories(prev => prev.filter(repo => repo._id !== repoId));
-      setSearchResults(prev => prev.filter(repo => repo._id !== repoId));
-    } catch (err) {
-      console.error("Delete error:", err);
-      alert("Failed to delete repository");
+      setRepositories(prev => prev.filter(r => r._id !== repoId));
+      setSearchResults(prev => prev.filter(r => r._id !== repoId));
+    } catch {
+      alert("Delete failed");
     }
   };
 
-  // REMOVE SUGGESTION (frontend only)
-  const removeSuggestion = (repoId) => {
-    setSuggestedRepositories(prev =>
-      prev.filter(repo => repo._id !== repoId)
-    );
+  /* ===============================
+     STAR
+  ============================== */
+
+  const handleStar = async (repoId) => {
+    try {
+      await API.post(`/repo/star/${repoId}`);
+      alert("Repo starred ⭐");
+    } catch {
+      alert("Already starred");
+    }
   };
+
+  /* ===============================
+     UI
+  ============================== */
 
   return (
     <>
@@ -92,11 +106,11 @@ const Dashboard = () => {
 
       <section id="dashboard">
 
-        {/* SUGGESTED */}
+        {/* LEFT: Suggested */}
         <aside>
           <h3>Suggested Repositories</h3>
 
-          {suggestedRepositories.map((repo) => (
+          {suggestedRepositories.map(repo => (
             <div className="repo-card" key={repo._id}>
               <div onClick={() => navigate(`/repo/${repo._id}`)}>
                 <h4>{repo.name}</h4>
@@ -104,54 +118,76 @@ const Dashboard = () => {
                 <small>Owner: {repo.owner?.username}</small>
               </div>
 
-              <button onClick={() => removeSuggestion(repo._id)}>
-                Remove
-              </button>
+              <div className="repo-actions">
+                <button onClick={() => handleStar(repo._id)}>⭐ Star</button>
+                <button onClick={() =>
+                  setSuggestedRepositories(prev =>
+                    prev.filter(r => r._id !== repo._id)
+                  )
+                }>
+                  Remove
+                </button>
+              </div>
             </div>
           ))}
         </aside>
 
-        {/* USER REPOS */}
+        {/* CENTER */}
         <main>
+
           <h2>Your Repositories</h2>
 
-          <div id="search">
+          {/* PREMIUM SEARCH BAR */}
+          <div className="search-bar">
+            <span className="search-icon">🔍</span>
+
             <input
               type="text"
+              placeholder="Search repositories..."
               value={searchQuery}
-              placeholder="Search..."
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
-          {searchResults.map((repo) => (
+          {/* RESULTS */}
+          {searchResults.map(repo => (
             <div className="repo-card" key={repo._id}>
 
               <div onClick={() => navigate(`/repo/${repo._id}`)}>
                 <h4>{repo.name}</h4>
                 <p>{repo.description}</p>
-                <small>Owner: {repo.owner?.username || "You"}</small>
+                <small>Owner: You</small>
               </div>
 
-              <button onClick={() => handleDeleteRepo(repo._id)}>
-                Delete
-              </button>
+              <div className="repo-actions">
+                <button onClick={() => handleDeleteRepo(repo._id)}>
+                  Delete
+                </button>
+              </div>
 
             </div>
           ))}
+
         </main>
 
-        {/* RIGHT SIDEBAR */}
+        {/* RIGHT */}
         <aside>
           <h3>Upcoming Events</h3>
           <ul>
-            <li><p>Tech Conference - Dec 15</p></li>
-            <li><p>Developer Meetup - Dec 25</p></li>
-            <li><p>React Summit - Jan 5</p></li>
+            <li>Tech Conference</li>
+            <li>Developer Meetup</li>
+            <li>React Summit</li>
           </ul>
         </aside>
 
       </section>
+      {/* END SECTION (visual footer) */}
+      <div className="dashboard-end">
+        <div className="dashboard-end-inner">
+            <h4>You're all caught up</h4>
+            <p> No more repositories to show. Build. Commit. Ship.</p>
+        </div>
+      </div>
     </>
   );
 };

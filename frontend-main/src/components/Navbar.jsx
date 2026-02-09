@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../authContext";
 import "./navbar.css";
+import logo from "../assets/logo.png";
+
 
 const Navbar = () => {
   const { currentUser, username, logout } = useAuth();
@@ -10,13 +12,11 @@ const Navbar = () => {
     <nav>
       {/* Logo */}
       <Link to="/">
-        <div>
-          <img
-            src="https://www.github.com/images/modules/logos_page/GitHub-Mark.png"
-            alt="GitHub Logo"
-          />
-          <h3>GitHub</h3>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <img src={logo}  alt="RepoSphere Logo" style={{ width: "90px", height: "90px", objectFit: "contain" }}/>
+          <h1 style={{ margin: 0,  fontSize: "22px", fontWeight: "700",  letterSpacing: "1px",  color: "#ffffff"}}>REPOSPHERE</h1>
         </div>
+
       </Link>
 
       {/* Right side menu */}

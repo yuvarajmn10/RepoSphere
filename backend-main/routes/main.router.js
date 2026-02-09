@@ -9,6 +9,7 @@ const activityRouter = require("./activity.router");
 const mainRouter = express.Router();
 
 mainRouter.use("/auth", userRouter);
+mainRouter.use("/user", userRouter);
 mainRouter.use(repoRouter);
 mainRouter.use(issueRouter);
 mainRouter.use(commitRouter);

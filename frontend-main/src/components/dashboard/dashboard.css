@@ -1,50 +1,122 @@
 #dashboard {
   display: grid;
-  grid-template-columns: 260px 1fr 260px;
-  gap: 20px;
-  padding: 30px;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 28px;
+  padding: 32px ;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* repo cards */
+/* SEARCH BAR */
+
+.search-bar {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.search-bar input {
+  width: 90%;
+  padding: 14px 16px 14px 42px;
+  border-radius: 10px;
+  border: 1px solid #30363d;
+  background: #0d1117;
+  color: white;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88,166,255,0.2);
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #8b949e;
+}
+
+/* REPO CARDS */
+
 .repo-card {
   background: #161b22;
   border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 12px;
-  transition: 0.2s ease;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  transition: all 0.2s ease;
 }
 
 .repo-card:hover {
   border-color: #58a6ff;
+  transform: translateY(-2px);
 }
 
 .repo-card h4 {
   margin: 0;
   color: #58a6ff;
+  font-size: 16px;
 }
 
 .repo-card p {
   margin: 6px 0;
   color: #c9d1d9;
+  font-size: 14px;
 }
 
 .repo-card small {
   color: #8b949e;
+  font-size: 12px;
 }
 
-.repo-card button {
-  margin-top: 10px;
+.repo-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.repo-actions button {
   background: #21262d;
   border: 1px solid #30363d;
   color: white;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.repo-card button:hover {
+.repo-actions button:hover {
   background: #30363d;
+}
+
+/* ===============================
+   DASHBOARD END SECTION
+================================ */
+
+.dashboard-end {
+  margin-top: 40px;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, transparent, #0d1117 40%);
+  border-top: 1px solid #30363d;
+  text-align: center;
+}
+
+.dashboard-end-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.dashboard-end h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #58a6ff;
+}
+
+.dashboard-end p {
+  margin-top: 8px;
+  color: #8b949e;
+  font-size: 14px;
 }

@@ -6,7 +6,7 @@ import { PageHeader } from "@primer/react/drafts";
 import { Box, Button } from "@primer/react";
 import "./auth.css";
 
-import logo from "../../assets/github-mark-white.svg";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { setCurrentUser } = useAuth();
+  const { loginUser } = useAuth(); // ⭐ use context login
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,11 +27,8 @@ const Login = () => {
         password,
       });
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userId", res.data.userId);
-      localStorage.setItem("username", res.data.username);
-
-      setCurrentUser(res.data.userId);
+      // ⭐ CENTRALIZED LOGIN STORAGE
+      loginUser(res.data);
 
       window.location.href = "/";
     } catch (err) {
@@ -44,9 +41,12 @@ const Login = () => {
 
   return (
     <div className="login-wrapper">
-      <div className="login-logo-container">
+      <div className="logo-header">
         <img className="logo-login" src={logo} alt="Logo" />
+        <div className="logo-name">REPOSPHERE</div>
       </div>
+
+
 
       <div className="login-box-wrapper">
         <div className="login-heading">

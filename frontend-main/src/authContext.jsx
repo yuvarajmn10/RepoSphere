@@ -11,6 +11,9 @@ export const AuthProvider = ({ children }) => {
   const [username, setUsername] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
 
+  /* =========================
+     LOAD FROM LOCAL STORAGE
+  ========================= */
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     const uname = localStorage.getItem("username");
@@ -21,20 +24,48 @@ export const AuthProvider = ({ children }) => {
     if (img) setProfileImage(img);
   }, []);
 
+  /* =========================
+     LOGIN HANDLER
+  ========================= */
+  const loginUser = (data) => {
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.userId);
+    localStorage.setItem("username", data.username);
+
+    if (data.profileImage) {
+      localStorage.setItem("profileImage", data.profileImage);
+      setProfileImage(data.profileImage);
+    }
+
+    setCurrentUser(data.userId);
+    setUsername(data.username);
+  };
+
+  /* =========================
+     LOGOUT
+  ========================= */
   const logout = () => {
     localStorage.clear();
     window.location.href = "/auth";
   };
 
+  /* =========================
+     CONTEXT VALUE
+  ========================= */
   const value = {
     currentUser,
-    setCurrentUser,
+    setCurrentUser,     // ⭐ RESTORED
     username,
-    setUsername,
+    setUsername,        // ⭐ RESTORED
     profileImage,
     setProfileImage,
+    loginUser,
     logout,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

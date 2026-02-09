@@ -10,11 +10,15 @@ const CreateRepo = () => {
 
   const handleCreateRepo = async () => {
     try {
-      await API.post("/repo/create", {
-        name,
-        description,
-        visibility,
-      });
+      await API.post(
+        "/repo/create",
+        { name, description, visibility },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       alert("Repository created!");
       window.location.href = "/";
@@ -30,17 +34,22 @@ const CreateRepo = () => {
 
       <div className="create-repo-wrapper">
         <div className="create-repo-card">
-          <h2>Create new repository</h2>
 
+          <h2>Create a new repository</h2>
+
+          <label>Repository name</label>
           <input
+            className="repo-input"
             type="text"
-            placeholder="Repository name"
+            placeholder="my-awesome-project"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
+          <label>Description</label>
           <textarea
-            placeholder="Description"
+            className="repo-input"
+            placeholder="What does this project do?"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -54,9 +63,10 @@ const CreateRepo = () => {
             Public repository
           </label>
 
-          <button onClick={handleCreateRepo}>
+          <button className="create-btn" onClick={handleCreateRepo}>
             Create Repository
           </button>
+
         </div>
       </div>
     </>
