@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import API from "../../api/axios";
 import { useAuth } from "../../authContext";
 
-import { PageHeader } from "@primer/react/drafts";
+import { Heading } from "@primer/react";
 import { Box, Button } from "@primer/react";
 import "./auth.css";
 
@@ -56,11 +56,10 @@ const Signup = () => {
       <div className="login-box-wrapper">
         <div className="login-heading">
           <Box sx={{ padding: 1 }}>
-            <PageHeader>
-              <PageHeader.TitleArea variant="large">
-                <PageHeader.Title>Sign Up</PageHeader.Title>
-              </PageHeader.TitleArea>
-            </PageHeader>
+            <Heading as="h2" sx={{ mb: 3 }}>
+                Sign Up
+            </Heading>
+
           </Box>
         </div>
 
