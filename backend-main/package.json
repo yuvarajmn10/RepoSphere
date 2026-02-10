@@ -4,10 +4,10 @@
   "description": "Git Clone",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js start"
   },
   "keywords": [],
-  "author": "Apna College",
+  "author": "Vinayak P,
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1657.0",
