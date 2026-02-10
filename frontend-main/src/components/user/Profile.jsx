@@ -73,17 +73,18 @@ const Profile = () => {
         {/* LEFT */}
         <div className="user-profile-section">
 
-          <img
-            className="profile-image"
+         <img
+          className="profile-image"
             src={
-              preview
-                ? preview
-                : storedImage
-                ? `http://localhost:3000${storedImage}`
-                : "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-            }
-            alt="profile"
+                  preview
+                  ? preview
+                  : storedImage
+                  ? `${import.meta.env.VITE_API_URL}${storedImage}`
+                  : "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                }
+                  alt="profile"
           />
+
 
           <label className="upload-btn">
             Change profile photo
